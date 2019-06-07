@@ -16,12 +16,11 @@ char **reconstruct_trip(Ticket **tickets, int length)
     hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
   }
   // find the ticket where source is NONE
-  char *current = hash_table_retrieve(ht, "NONE");
-  // add destination to route
-  // find destination key
-  // add new destination to route
-  //
-
+  route[0] = hash_table_retrieve(ht, "NONE");
+  for (int i = 1; i < length; i++)
+  {
+    route[i] = hash_table_retrieve(ht, route[i - 1]);
+  }
   return route;
 }
 
