@@ -13,24 +13,21 @@ Answer *createAnswer(int index1, int index2)
 Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
   HashTable *ht = create_hash_table(16);
-  // check each item in *weights
   for (int i = 0; i < length; i++)
   {
+    // hash_table_insert(indices, weights[i], i);
     int difference = limit - weights[i];
     int potentialKey = hash_table_retrieve(ht, difference);
 
-    // if (ht->storage[difference] != NULL)
     if (potentialKey != -1)
     {
       // we have a match
-      Answer *answer = createAnswer(weights[i], difference);
+      Answer *answer = createAnswer(i, potentialKey);
+
       return answer;
-      // check if difference or ht->storage[difference] is bigger
     }
-    hash_table_insert(ht, weights[i], difference);
+    hash_table_insert(ht, weights[i], i);
   }
-  // weight/(limit - weight)
-  // if (limit - weight) is already a key, we have a match
 
   return NULL;
 }
